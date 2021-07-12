@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户中心</title>
+	<%- include('../../public/title') %>
+	<style>
+		ul.unstyled {
+			margin-left: 0;
+    		list-style: none;
+    		padding-left: 0;
+		}
+		.ml10 {
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<%- include('../../public/header', {user: user}) %>
+		<h3>我的文章</h3>
+		<% if(data.articles.length) { %>
+			<table class="table table-bordered table-condensed table-hover table-striped">
+			<caption class="text-center">文章列表</caption>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>标题</td>
+					<td>创建时间</td>
+					<td>最近修改</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% data.articles.map((v, i) => { %>
+					<tr>
+						<td><%= i + 1 %></td>
+						<td><a href="/detail/<%= v._id %>"><%= v.title %></a></td>
+						<td><time><%= v.date %></time></td>
+						<td><time><%= v.update %></time></td>
+						<td>
+							<div class="btn-group">
+								<a href="/write/<%= v._id %>" class="btn btn-warning">编辑</a>
+							<a href="/del/<%= v._id %>" class="btn btn-danger">删除</a>
+							</div>
+						</td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+		<% } else { %>
+			<span>暂无文章</span>
+		<% } %>
+	</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div class="sticky">
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+       <!-- <i class="glyphicon glyphicon-home"></i> -->
+      <span class="logo">首页</span>
+      </a>
+    </div>
+    <div class="navbar-text"> 
+   <% if(user.name) { %>
+    <a href="/user"><span class="text-primary">欢迎，<%- user.name %></span></a>
+    <a href="/write" class="navbar-link">我要写文章</a>
+    <a href="/logout" class="btn-link">退出登录</a>
+   <% } else { %>
+    <a href="/login" class="navbar-link">登录</a>
+     <% } %>
+  </div>
+  </div>
+</nav>
+</div>

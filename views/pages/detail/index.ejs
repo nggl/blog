@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文章</title>
+	<%- include('../../public/title') %>
+	<style>
+		ul.unstyled {
+			margin-left: 0;
+    		list-style: none;
+    		padding-left: 0;
+		}
+		.ml10 {
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<%- include('../../public/header', {user: user}) %>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="h2">
+					<h3><%= data.title %></h3>
+				</div>
+				<div>
+					<small>作者:<%= data.auth %></small>&nbsp;&nbsp;<small>发布时间:</small><em><time class="small"><%= data.date %></time></em>
+					<% if(data.update) { %>&nbsp;&nbsp;<small>最新修改:</small><em><time class="small"><%= data.update %></time><% } %></em>
+				</div>
+				<hr>
+				<div class="lead">
+					<%- data.content %>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="page-header">作品推荐</div>
+				<ul class="unstyled">
+					<% if(data.recs) { %>
+							<% data.recs.map((item, index) => {%>
+							<li>
+								<a href="/detail/<%= item._id %>"><%= item.title %></a>
+								<time class="ml10 small"><%= item.date %></time>
+							</li>
+							<% }) %>
+						<% } %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

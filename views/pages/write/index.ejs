@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文章</title>
+	<%- include('../../public/title') %>
+	<script src="/xheditor-1.2.2/xheditor-1.2.2.min.js"></script>
+	<script src="/xheditor-1.2.2/xheditor_lang/zh-cn.js"></script>
+</head>
+<body>
+	<div class="container">
+		<%- include('../../public/header', {user: user}) %>
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="well">
+					<form class="form-horizontal" action="/write" method="post" autocomplete="off">
+						<input type="hidden" value="<%= data._id %>" name="id">
+						<input type="hidden" value="<%= page %>" name="page">
+					  <div class="form-group">
+					    <label for="title" class="col-sm-2 control-label">标题</label>
+					    <div class="col-sm-10">
+					      <input class="form-control" id="title" name="title" value="<%= data.title %>" placeholder="输入标题">
+					    </div>
+					  </div>
+					   <div class="form-group">
+					    <label for="content" class="col-sm-2 control-label">内容</label>
+					    <div class="col-sm-10">
+					      <textarea class="form-control" id="content" name="content" placeholder="相应的数据内容">
+					      	<%- data.content %>
+					      </textarea>
+					    </div>
+					  </div>
+					  <div class="row">
+					  	<div class="col-sm-2 col-sm-offset-2">
+					  		<input type="reset" class="btn btn-danger btn-block" value="重置">
+					  	</div>
+					  	<div class="col-sm-2">
+					  		<input type="submit" class="btn btn-success btn-block" value="确定">
+					  	</div>
+					  </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$('#content').xheditor({
+			upMultiple:1,
+			upImgUrl:'/upload/multer',
+			// tools: 'simple',
+			tools: 'mfull',
+			html5Upload: false,
+			height: 400,
+		})
+	</script>
+</body>
+</html>

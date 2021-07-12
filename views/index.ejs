@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>文章列表</title>
+	<%- include('public/title') %>
+</head>
+<body>
+	<div class="container">
+		<%- include('public/header', {user: user}) %>
+		<form class="form-inline" autocomplete="off" action="/">
+			<a href="/" class="btn btn-success">↺</a>
+			<div class="form-group">
+				<input class="form-control" name="q" placeholder="输入作者名称/标题" value="<%= data.q %>">
+			</div>
+			<button type="submit" class="btn btn-primary">搜索</button>
+		</form>
+		<table class="table table-bordered table-condensed table-hover table-striped">
+			<caption class="text-center">文章列表</caption>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>作者</td>
+					<td>标题</td>
+					<td>最新修改</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% data.list.map((v, i) => { %>
+					<tr>
+						<td><%= i + 1 %></td>
+						<td><%= v.auth %></td>
+						<td><a href="/detail/<%= v._id %>"><%= v.title %></a></td>
+						<td><% if(v.update) { %><time><%= v.update %></time><% } %></td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+
+		<nav class="text-center" aria-label="Page navigation">
+		  <ul class="pagination">
+		    <% if(data.curPage > 1) { %>
+		    <li>
+		      <a href="/?page=<%= data.curPage - 1 %><%= data.q ? '&q=' + data.q : '' %><%= data.limit == 10 ? '' : '&limit=' + data.limit %>" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <% } %>
+		    <% for(let i = 1; i <= data.total; i++) { %>
+		    	<li class="<%= i == data.curPage ? 'active' : '' %>"><a href="/?page=<%= i %><%= data.q ? '&q=' + data.q : '' %><%= data.limit == 10 ? '' : '&limit=' + data.limit %>"><%= i %></a></li>
+		    <% } %>
+		    <% if(data.curPage < data.total) { %>
+		    <li>
+		      <a href="/?page=<%= data.curPage - 0 + 1 %><%= data.q ? '&q=' + data.q : '' %><%= data.limit == 10 ? '' : '&limit=' + data.limit %>" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    <% } %>
+		  </ul>
+		</nav>
+	</div>
+</body>
+</html>
