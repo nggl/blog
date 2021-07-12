@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# sftp config file
+sftp-config.json
+
+# yarn
+yarn.lock
